@@ -7,6 +7,8 @@ export class UserState {
 
     isAuthenticated = computed(() => this._user() !== null);
 
+    readonly user = computed(() => this._user());
+
     setUser(user: User) {
         this._user.set(user);
     }
