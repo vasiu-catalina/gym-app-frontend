@@ -1,0 +1,89 @@
+<div class="container">
+    <form [formGroup]="workoutForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Workout Name</label>
+            <input id="name" type="text" formControlName="name" class="form-control" placeholder="Enter workout name" />
+            <div *ngIf="workoutForm.get('name')?.invalid && workoutForm.get('name')?.touched" class="text-danger">
+                Workout name is required and should be at least 3 characters long.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input id="description" type="text" formControlName="description" class="form-control"
+                placeholder="Enter description" />
+            <div *ngIf="workoutForm.get('description')?.invalid && workoutForm.get('description')?.touched"
+                class="text-danger">
+                Description is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="duration">Workout Duration (minutes)</label>
+            <input id="duration" type="number" formControlName="duration" class="form-control"
+                placeholder="Enter workout duration" />
+            <div *ngIf="workoutForm.get('duration')?.invalid && workoutForm.get('duration')?.touched"
+                class="text-danger">
+                Duration is required and must be at least 1 minute.
+            </div>
+        </div>
+
+        <div formArrayName="exercises">
+            <div *ngFor="let exercise of exercises.controls; let i = index" [formGroupName]="i" class="exercise">
+                <h4>Exercise {{i + 1}}</h4>
+
+                <div class="form-group">
+                    <label [for]="'exercise-name-' + i">Exercise Name</label>
+                    <input [id]="'exercise-name-' + i" type="text" formControlName="name" class="form-control"
+                        placeholder="Enter exercise name" />
+                    <div *ngIf="exercise.get('name')?.invalid && exercise.get('name')?.touched" class="text-danger">
+                        Exercise name is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label [for]="'setNr-' + i">Number of Sets</label>
+                    <input [id]="'setNr-' + i" type="number" formControlName="setNr" class="form-control" />
+                    <div *ngIf="exercise.get('setNr')?.invalid && exercise.get('setNr')?.touched" class="text-danger">
+                        Sets are required and must be at least 1.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label [for]="'nrReps-' + i">Number of Reps</label>
+                    <input [id]="'nrReps-' + i" type="number" formControlName="nrReps" class="form-control" />
+                    <div *ngIf="exercise.get('nrReps')?.invalid && exercise.get('nrReps')?.touched" class="text-danger">
+                        Reps are required and must be at least 1.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label [for]="'weight-' + i">Weight (kg)</label>
+                    <input [id]="'weight-' + i" type="number" formControlName="weight" class="form-control" />
+                    <div *ngIf="exercise.get('weight')?.invalid && exercise.get('weight')?.touched" class="text-danger">
+                        Weight is required and cannot be negative.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label [for]="'duration-' + i">Exercise Duration (minutes)</label>
+                    <input [id]="'duration-' + i" type="number" formControlName="duration" class="form-control" />
+                    <div *ngIf="exercise.get('duration')?.invalid && exercise.get('duration')?.touched"
+                        class="text-danger">
+                        Duration is required and cannot be negative.
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-danger mt-2" (click)="removeExercise(i)">Remove Exercise</button>
+            </div>
+        </div>
+
+        <div class="form-group mt-3">
+            <button type="button" class="btn btn-success" (click)="addExercise()">Add Exercise</button>
+        </div>
+
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary" [disabled]="!workoutForm.valid">Submit Workout Log</button>
+        </div>
+    </form>
+</div>
