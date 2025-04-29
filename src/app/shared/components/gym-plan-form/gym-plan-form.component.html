@@ -1,0 +1,79 @@
+<div class="container">
+    <form [formGroup]="gymPlanForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Gym Plan Name</label>
+            <input id="name" formControlName="name" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" formControlName="description" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input id="startDate" type="date" formControlName="startDate" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input id="endDate" type="date" formControlName="endDate" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="nrWeeks">Number of Weeks</label>
+            <input id="nrWeeks" formControlName="nrWeeks" class="form-control" type="number" />
+        </div>
+
+        <div formArrayName="days">
+            <div *ngFor="let day of days.controls; let i = index" [formGroupName]="i" class="day-group">
+                <div class="form-group">
+                    <label for="dayName">Day Name</label>
+                    <input id="dayName" formControlName="name" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="dayDescription">Day Description</label>
+                    <textarea id="dayDescription" formControlName="description" class="form-control"></textarea>
+                </div>
+
+                <div formArrayName="exercises">
+                    <div *ngFor="let exercise of getExercises(i).controls; let j = index" [formGroupName]="j">
+                        <div class="form-group">
+                            <label for="exerciseName">Exercise Name</label>
+                            <input id="exerciseName" formControlName="name" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nrSets">Number of Sets</label>
+                            <input id="nrSets" formControlName="nrSets" class="form-control" type="number" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nrReps">Number of Reps</label>
+                            <input id="nrReps" formControlName="nrReps" class="form-control" type="number" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="duration">Duration (minutes)</label>
+                            <input id="duration" formControlName="duration" class="form-control" type="number" />
+                        </div>
+
+                        <button type="button" class="btn btn-danger" (click)="removeExercise(i, j)">Remove
+                            Exercise</button>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" (click)="addExercise(i)">Add Exercise</button>
+                </div>
+
+                <button type="button" class="btn btn-danger" (click)="removeDay(i)">Remove Day</button>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" (click)="addDay()">Add Day</button>
+
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-success" [disabled]="!gymPlanForm.valid">Submit</button>
+        </div>
+    </form>
+</div>
