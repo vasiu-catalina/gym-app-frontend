@@ -1,0 +1,8 @@
+.login-container {
+    max-width: 500px;
+    margin-top: 50px;
+}
+
+input.ng-invalid.ng-touched {
+    border-color: #dc3545;
+}
