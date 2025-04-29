@@ -4,7 +4,7 @@ export interface Image {
     date: Date;
 }
 
-export interface Album {
+export interface PhotoAlbum {
     id: string;
     name: string;
     user: string;
