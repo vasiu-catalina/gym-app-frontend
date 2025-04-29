@@ -1,0 +1,33 @@
+<div class="container">
+    <form [formGroup]="measurementForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input id="date" type="date" formControlName="date" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="unit">Unit</label>
+            <select id="unit" formControlName="unit" class="form-control">
+                <option value="">Select Unit</option>
+                <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="value">Value</label>
+            <input id="value" formControlName="value" class="form-control" type="number" step="0.01" />
+        </div>
+
+        <div class="form-group">
+            <label for="type">Measurement Type</label>
+            <select id="type" formControlName="type" class="form-control">
+                <option value="">Select Type</option>
+                <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+            </select>
+        </div>
+
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-success" [disabled]="!measurementForm.valid">Submit</button>
+        </div>
+    </form>
+</div>
