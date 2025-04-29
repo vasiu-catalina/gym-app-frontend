@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '../../shared/services/auth.service';
 import { AuthState } from '../../shared/states/auth.state';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +19,10 @@ export class LoginComponent implements OnInit {
   form !: FormGroup;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
-    private authState: AuthState
+    private authState: AuthState,
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         this.authState.setToken(res.token);
         this.loading = false;
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.error = err.error?.message || 'Login failed';
