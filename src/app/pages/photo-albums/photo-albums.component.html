@@ -1,0 +1,95 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Photo Albums</h2>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAlbumModal">
+            + Add Album
+        </button>
+    </div>
+
+    <div *ngIf="photoAlbums.length === 0" class="alert alert-info">
+        No photo albums found.
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let album of photoAlbums">
+            <div class="card h-100 shadow-sm" (click)="viewAlbum(album.id)" style="cursor: pointer;">
+                <div class="position-relative" style="height: 200px; overflow: hidden;">
+                    <img *ngIf="album.images.length > 0" [src]="album.images[album.images.length - 1].filename"
+                        class="card-img-top h-100 object-fit-cover" alt="Last uploaded image" />
+                    <div *ngIf="album.images.length === 0"
+                        class="d-flex align-items-center justify-content-center h-100 bg-light">
+                        <i class="bi bi-folder2-open" style="font-size: 3rem; color: #aaa;"></i>
+                    </div>
+                </div>
+                <div class="card-body" (click)="$event.stopPropagation()">
+                    <div *ngIf="editingAlbumId !== album.id">
+                        <h5 class="card-title text-truncate" style="max-width: 100%;">{{ album.name }}</h5>
+                    </div>
+                    <div *ngIf="editingAlbumId === album.id">
+                        <input [(ngModel)]="editedAlbumName" class="form-control mb-2" />
+                        <button class="btn btn-sm btn-success me-2" (click)="saveAlbumName(album)">Save</button>
+                        <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">Cancel</button>
+                    </div>
+
+                    <p class="card-text text-muted">
+                        {{ album.images.length }} {{ album.images.length === 1 ? 'image' : 'images' }}
+                    </p>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-secondary"
+                            (click)="startEditing(album, $event)">Rename</button>
+                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal" (click)="openDeleteModal(album.id, $event)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="cancelDelete()"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this album?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="cancelDelete()">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="confirmDelete()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Album Modal -->
+    <div class="modal fade" id="addAlbumModal" tabindex="-1" aria-labelledby="addAlbumModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addAlbumModalLabel">Create New Album</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="cancelCreateAlbum()"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="albumNameInput" class="form-label">Album Name</label>
+                    <input id="albumNameInput" type="text" [(ngModel)]="newAlbumName" class="form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="cancelCreateAlbum()">Cancel</button>
+                    <button type="button" class="btn btn-success" (click)="createAlbum()" data-bs-dismiss="modal"
+                        [disabled]="!newAlbumName.trim()">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

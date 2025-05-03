@@ -4,6 +4,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AccountComponent } from './pages/account/account.component';
 import { MeasurementsComponent } from './pages/measurements/measurements.component';
 import { MeasurementformComponent } from './shared/components/measurement-form/measurement-form.component';
+import { PhotoAlbumsComponent } from './pages/photo-albums/photo-albums.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +24,9 @@ export const routes: Routes = [
     },
     {
         path: 'measurements/update/:id', component: MeasurementformComponent
+    },
+    {
+        path: 'photo-albums', component: PhotoAlbumsComponent
     },
     {
         path: '**', redirectTo: 'account'
