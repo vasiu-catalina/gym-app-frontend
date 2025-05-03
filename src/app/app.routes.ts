@@ -5,6 +5,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { MeasurementsComponent } from './pages/measurements/measurements.component';
 import { MeasurementformComponent } from './shared/components/measurement-form/measurement-form.component';
 import { PhotoAlbumsComponent } from './pages/photo-albums/photo-albums.component';
+import { PhotoAlbumViewComponent } from './pages/photo-album-view/photo-album-view.component';
 
 export const routes: Routes = [
     {
@@ -27,6 +28,9 @@ export const routes: Routes = [
     },
     {
         path: 'photo-albums', component: PhotoAlbumsComponent
+    },
+    {
+        path: 'photo-albums/:id', component: PhotoAlbumViewComponent
     },
     {
         path: '**', redirectTo: 'account'

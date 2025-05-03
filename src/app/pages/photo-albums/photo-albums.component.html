@@ -14,7 +14,8 @@
         <div class="col" *ngFor="let album of photoAlbums">
             <div class="card h-100 shadow-sm" (click)="viewAlbum(album.id)" style="cursor: pointer;">
                 <div class="position-relative" style="height: 200px; overflow: hidden;">
-                    <img *ngIf="album.images.length > 0" [src]="album.images[album.images.length - 1].filename"
+                    <img *ngIf="album.images.length > 0"
+                        [src]="imageUrl + '/' +album.images[album.images.length - 1].filename"
                         class="card-img-top h-100 object-fit-cover" alt="Last uploaded image" />
                     <div *ngIf="album.images.length === 0"
                         class="d-flex align-items-center justify-content-center h-100 bg-light">

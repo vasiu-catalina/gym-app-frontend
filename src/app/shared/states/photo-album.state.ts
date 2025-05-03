@@ -33,8 +33,8 @@ export class PhotoAlbumState {
         this._albums.set(filtered);
     }
 
-    getAlbumById(id: string): PhotoAlbum | undefined {
-        return this._albums().find(a => a.id === id);
+    getAlbumById(id: string): PhotoAlbum | null {
+        return this._albums().find(a => a.id === id) || null;
     }
 
     clearPhotoAlbum() {

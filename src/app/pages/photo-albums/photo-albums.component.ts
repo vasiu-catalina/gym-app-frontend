@@ -6,6 +6,7 @@ import { PhotoAlbum } from '../../shared/models/photo-album.model';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-photo-albums',
@@ -23,6 +24,7 @@ export class PhotoAlbumsComponent {
   selectedAlbumToDeleteId: string | null = null;
 
   newAlbumName: string = '';
+  imageUrl = `${environment.api}/images`;
 
 
   constructor(
