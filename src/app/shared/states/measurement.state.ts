@@ -20,4 +20,10 @@ export class MeasurementState {
   getMeasurementById(id: string): Measurement | null {
     return this._measurements().find(m => m.id === id) || null;
   }
+
+  getMeasurementsByType(type: string): Measurement[] {
+    if (type === 'all') return this._measurements();
+    return this._measurements().filter(m => m.type === type);
+  }
+
 }

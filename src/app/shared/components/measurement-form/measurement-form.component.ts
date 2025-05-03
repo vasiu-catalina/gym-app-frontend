@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Measurement } from '../../models/measurement.model';
+import { Measurement, MeasurementType } from '../../models/measurement.model';
 import { MeasurementService } from '../../services/measurement.service';
 import { AuthState } from '../../states/auth.state';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,11 +24,7 @@ export class MeasurementformComponent implements OnInit {
 
   // Define valid units and types as per your backend schema
   units = ['kg', 'cm'];
-  types = [
-    'Biceps', 'Triceps', 'Forearm', 'Chest', 'Waist', 'Hips',
-    'Quads', 'Calf', 'Shoulders', 'Back', 'Glutes', 'Abdomen',
-    'Weight', 'Height'
-  ];
+  types = Object.values(MeasurementType);
 
   constructor(private fb: FormBuilder,
     private router: Router, private route: ActivatedRoute,

@@ -8,3 +8,20 @@ export interface Measurement {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export enum MeasurementType {
+    Biceps = 'Biceps',
+    Triceps = 'Triceps',
+    Forearm = 'Forearm',
+    Chest = 'Chest',
+    Waist = 'Waist',
+    Hips = 'Hips',
+    Quads = 'Quads',
+    Calf = 'Calf',
+    Shoulders = 'Shoulders',
+    Back = 'Back',
+    Glutes = 'Glutes',
+    Abdomen = 'Abdomen',
+    Weight = 'Weight',
+    Height = 'Height'
+}
