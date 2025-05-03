@@ -29,7 +29,7 @@
     <!-- Image grid -->
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3">
         <div *ngFor="let img of photoAlbum.images" class="col">
-            <div class="card h-100 position-relative">
+            <div class="card h-100 position-relative" (click)="toggleSelectImage(img.id)">
                 <img [src]="imageUrl + '/' + img.filename" class="card-img-top" alt="Photo" />
                 <div class="card-body p-2">
                     <p class="card-text small text-muted mb-0">{{ img.date | date:'short' }}</p>
@@ -44,8 +44,36 @@
     </div>
 
     <!-- Bulk Delete Button -->
+    <!-- Bulk Delete Controls -->
     <div *ngIf="selectMode" class="mt-3">
-        <button class="btn btn-danger" (click)="confirmBulkDelete()">Delete Selected</button>
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+            Delete Selected
+        </button>
         <button class="btn btn-secondary ms-2" (click)="cancelSelectMode()">Cancel</button>
     </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    Are you sure you want to delete the selected images?
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="confirmBulkDelete()">
+                        Yes, Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

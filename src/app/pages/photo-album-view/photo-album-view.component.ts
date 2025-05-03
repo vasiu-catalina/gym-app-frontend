@@ -60,6 +60,14 @@ export class PhotoAlbumViewComponent implements OnInit {
     this.selectedImages = {};
   }
 
+  toggleSelectImage(id: string) {
+    if (this.selectedImages[id]) {
+      this.selectedImages[id] = false;
+    } else {
+      this.selectedImages[id] = true;
+    }
+  }
+
   cancelSelectMode() {
     this.selectMode = false;
   }
@@ -89,8 +97,8 @@ export class PhotoAlbumViewComponent implements OnInit {
       error: (err) => {
         console.log(err);
       }
-    })
-
+    });
+    this.selectMode = false;
   }
 
 }
