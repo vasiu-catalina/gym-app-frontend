@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-offcanvas',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './offcanvas.component.html',
   styleUrl: './offcanvas.component.css'
 })

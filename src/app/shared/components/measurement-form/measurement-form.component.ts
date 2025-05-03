@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Measurement } from '../../models/measurement.model';
+import { MeasurementService } from '../../services/measurement.service';
+import { AuthState } from '../../states/auth.state';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MeasurementState } from '../../states/measurement.state';
 
 @Component({
   selector: 'app-measurement-form',
@@ -8,8 +14,13 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   templateUrl: './measurement-form.component.html',
   styleUrls: ['./measurement-form.component.css']
 })
-export class MeasurementFormComponent implements OnInit {
-  measurementForm: FormGroup;
+export class MeasurementformComponent implements OnInit {
+
+  measurement: Measurement | null = null;
+  measurementId = '';
+
+  form!: FormGroup;
+  userId = '';
 
   // Define valid units and types as per your backend schema
   units = ['kg', 'cm'];
@@ -19,26 +30,80 @@ export class MeasurementFormComponent implements OnInit {
     'Weight', 'Height'
   ];
 
-  constructor(private fb: FormBuilder) {
-    this.measurementForm = this.fb.group({
-      date: ['', Validators.required], // Date input is required
-      unit: ['', Validators.required], // Unit (kg/cm) is required
-      value: [null, [Validators.required, Validators.min(0)]], // Value must be >= 0
-      type: ['', Validators.required] // Type selection is required
-    });
+  constructor(private fb: FormBuilder,
+    private router: Router, private route: ActivatedRoute,
+    private measurementService: MeasurementService,
+    private measurementState: MeasurementState,
+    private authState: AuthState,
+  ) {
+
+    effect(() => {
+      if (this.authState.isLoggedIn()) {
+        this.userId = this.authState.getUserId() || '';
+      }
+    })
   }
 
   ngOnInit(): void {
-    // On initialization, any pre-existing data would be populated here if necessary
+
+    this.measurementId = this.route.snapshot.paramMap.get('id') || '';
+
+    if (this.measurementId) {
+      this.measurement = this.measurementState.getMeasurementById(this.measurementId);
+    }
+
+    this.form = this.fb.group({
+      date: [this.measurement?.date ? this.formatDateTime(this.measurement.date) : '', Validators.required], // Date input is required
+      unit: [this.measurement?.unit || '', Validators.required], // Unit (kg/cm) is required
+      value: [this.measurement?.value || 0, [Validators.required, Validators.min(0)]], // Value must be >= 0
+      type: [this.measurement?.type || '', Validators.required] // Type selection is required
+    });
+
   }
 
-  // Submit handler
+
   onSubmit(): void {
-    if (this.measurementForm.valid) {
-      console.log('Measurement Data:', this.measurementForm.value);
-      // Normally, here you would call a service to save the measurement
+    if (this.form.invalid) return;
+
+    if (this.measurement) {
+      this.updateMeasurement();
     } else {
-      console.log('Form is invalid');
+      this.addMeasurement();
     }
+
+    console.log('Measurement Data:', this.form.value);
   }
+
+
+  addMeasurement() {
+    this.measurementService.createMeasurement(this.userId, this.form.value).subscribe({
+      next: (res: Response) => {
+        console.log(res);
+        this.router.navigate(['/measurements']);
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+      }
+    })
+  }
+
+  updateMeasurement() {
+    this.measurementService.updateMeasurement(this.userId, this.measurement?.id || '', this.form.value).subscribe({
+      next: (res: Response) => {
+        console.log(res);
+        this.router.navigate(['/measurements']);
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+      }
+    })
+  }
+
+
+  private formatDateTime(date: Date | string): string {
+    const d = new Date(date);
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
 }

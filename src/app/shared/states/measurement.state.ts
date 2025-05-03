@@ -3,17 +3,21 @@ import { Measurement } from '../models/measurement.model';
 
 @Injectable({ providedIn: 'root' })
 export class MeasurementState {
-  private _measurement = signal<Measurement | null>(null);
+  private _measurements = signal<Measurement[]>([]);
 
-  setMeasurement(measurement: Measurement) {
-    this._measurement.set(measurement);
+  setMeasurements(measurements: Measurement[]) {
+    this._measurements.set(measurements);
   }
 
-  getMeasurement(): Measurement | null {
-    return this._measurement();
+  getMeasurements(): Measurement[] {
+    return this._measurements();
   }
 
-  clearMeasurement() {
-    this._measurement.set(null);
+  clearMeasurements() {
+    this._measurements.set([]);
+  }
+
+  getMeasurementById(id: string): Measurement | null {
+    return this._measurements().find(m => m.id === id) || null;
   }
 }
