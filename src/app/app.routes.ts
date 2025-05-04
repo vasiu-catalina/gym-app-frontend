@@ -6,6 +6,8 @@ import { MeasurementsComponent } from './pages/measurements/measurements.compone
 import { MeasurementformComponent } from './shared/components/measurement-form/measurement-form.component';
 import { PhotoAlbumsComponent } from './pages/photo-albums/photo-albums.component';
 import { PhotoAlbumViewComponent } from './pages/photo-album-view/photo-album-view.component';
+import { GymPlansComponent } from './pages/gym-plans/gym-plans.component';
+import { GymPlanViewComponent } from './pages/gym-plan-view/gym-plan-view.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +33,12 @@ export const routes: Routes = [
     },
     {
         path: 'photo-albums/:id', component: PhotoAlbumViewComponent
+    },
+    {
+        path: 'gym-plans', component: GymPlansComponent
+    },
+    {
+        path: 'gym-plans/:id', component: GymPlanViewComponent
     },
     {
         path: '**', redirectTo: 'account'

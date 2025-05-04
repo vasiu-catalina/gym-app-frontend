@@ -1,0 +1,49 @@
+<div class="container mt-4" *ngIf="gymPlan">
+    <!-- Plan Header -->
+    <div class="mb-4">
+        <h2 class="fw-bold">{{ gymPlan.name }}</h2>
+        <p class="text-muted mb-1">{{ gymPlan.description }}</p>
+        <div class="small text-muted">
+            {{ gymPlan.startDate | date }} → {{ gymPlan.endDate | date }} |
+            {{ gymPlan.nrWeeks }} weeks
+            <span *ngIf="gymPlan.isAiGenerated" class="badge bg-info text-dark ms-2">AI Generated</span>
+        </div>
+    </div>
+
+    <!-- Days in the Plan -->
+    <div class="row g-4">
+        <div *ngFor="let day of gymPlan.days" class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ day.name }}</h5>
+                    <p class="card-text text-muted">{{ day.description }}</p>
+
+                    <div *ngIf="day.exercises.length > 0; else noExercises">
+                        <ul class="list-group list-group-flush">
+                            <li *ngFor="let ex of day.exercises" class="list-group-item d-flex justify-content-between">
+                                <div>
+                                    <strong>{{ ex.name }}</strong>
+                                    <div class="small text-muted">
+                                        Sets: {{ ex.nrSets }}, Reps: {{ ex.nrReps }},
+                                        Duration: {{ ex.duration }} min
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ng-template #noExercises>
+                        <div class="text-muted">No exercises assigned for this day.</div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Plan not found or loading -->
+<div class="container mt-4" *ngIf="!gymPlan">
+    <div class="alert alert-warning">
+        Gym plan not found or still loading.
+    </div>
+</div>
