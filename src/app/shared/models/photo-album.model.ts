@@ -2,6 +2,7 @@ export interface Image {
     id: string;
     filename: string;
     date: Date;
+    error: boolean
 }
 
 export interface PhotoAlbum {

@@ -44,6 +44,7 @@ export class PhotoAlbumViewComponent implements OnInit {
     effect(() => {
       this.photoAlbumId = this.route.snapshot.paramMap.get('id') || '';
       this.photoAlbum = this.photoAlbumState.getAlbumById(this.photoAlbumId)!;
+      this.photoAlbum.images = this.photoAlbum.images.map(img => ({ ...img, error: false }));
     })
   }
 

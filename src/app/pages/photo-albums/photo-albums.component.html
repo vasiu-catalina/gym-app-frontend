@@ -14,14 +14,27 @@
         <div class="col" *ngFor="let album of photoAlbums">
             <div class="card h-100 shadow-sm" (click)="viewAlbum(album.id)" style="cursor: pointer;">
                 <div class="position-relative" style="height: 200px; overflow: hidden;">
-                    <img *ngIf="album.images.length > 0"
-                        [src]="imageUrl + '/' +album.images[album.images.length - 1].filename"
-                        class="card-img-top h-100 object-fit-cover" alt="Last uploaded image" />
-                    <div *ngIf="album.images.length === 0"
-                        class="d-flex align-items-center justify-content-center h-100 bg-light">
-                        <i class="bi bi-folder2-open" style="font-size: 3rem; color: #aaa;"></i>
-                    </div>
+                    <ng-container *ngIf="album.images.length > 0; else emptyAlbum">
+                        <img *ngIf="!album.images[album.images.length - 1].error"
+                            [src]="imageUrl + '/' + album.images[album.images.length - 1].filename"
+                            (error)="album.images[album.images.length - 1].error = true"
+                            class="card-img-top h-100 object-fit-cover" alt="Last uploaded image" />
+
+                        <!-- Fallback placeholder when image fails to load -->
+                        <div *ngIf="album.images[album.images.length - 1].error"
+                            class="d-flex align-items-center justify-content-center h-100 bg-light">
+                            <i class="bi bi-folder2-open" style="font-size: 3rem; color: #aaa;"></i>
+                        </div>
+                    </ng-container>
+
+                    <!-- Placeholder if album is empty -->
+                    <ng-template #emptyAlbum>
+                        <div class="d-flex align-items-center justify-content-center h-100 bg-light">
+                            <i class="bi bi-folder2-open" style="font-size: 3rem; color: #aaa;"></i>
+                        </div>
+                    </ng-template>
                 </div>
+
                 <div class="card-body" (click)="$event.stopPropagation()">
                     <div *ngIf="editingAlbumId !== album.id">
                         <h5 class="card-title text-truncate" style="max-width: 100%;">{{ album.name }}</h5>
