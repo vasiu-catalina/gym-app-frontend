@@ -1,14 +1,16 @@
-<div class="container">
-    <div class="d-flex align-items-center mb-4">
-        <!-- Back Button -->
-        <a routerLink="/gym-plans" class="btn btn-outline-secondary me-3">
+<div class="container mb-5">
+    <div class="position-relative mb-4 w-100 d-flex justify-content-center align-items-center">
+        <!-- Back Button (absolute left) -->
+        <a routerLink="/gym-plans" class="btn btn-outline-secondary position-absolute start-0">
             <i class="bi bi-arrow-left"></i>
         </a>
-        <!-- Title -->
-        <h3 class="mb-0">
+
+        <!-- Centered Title -->
+        <h3 class="mb-0 text-center">
             {{ isEditMode ? 'Update Gym Plan' : 'Add Gym Plan' }}
         </h3>
     </div>
+
 
     <form [formGroup]="gymPlanForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
@@ -73,18 +75,16 @@
                         <button type="button" class="btn btn-danger" (click)="removeExercise(i, j)">Remove
                             Exercise</button>
                     </div>
-
-                    <button type="button" class="btn btn-primary" (click)="addExercise(i)">Add Exercise</button>
+                    <button type="button" class="btn btn-primary w-100" (click)="addExercise(i)">Add Exercise</button>
                 </div>
-
-                <button type="button" class="btn btn-danger" (click)="removeDay(i)">Remove Day</button>
+                <button type="button" class="btn btn-danger w-100" (click)="removeDay(i)">Remove Day</button>
             </div>
         </div>
 
-        <button type="button" class="btn btn-primary" (click)="addDay()">Add Day</button>
+        <button type="button" class="btn btn-primary w-100" (click)="addDay()">Add Day</button>
 
         <div class="form-group mt-3">
-            <button type="submit" class="btn btn-success" [disabled]="!gymPlanForm.valid">Submit</button>
+            <button type="submit" class="btn btn-success w-100" [disabled]="!gymPlanForm.valid">Submit</button>
         </div>
     </form>
 </div>

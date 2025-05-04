@@ -9,6 +9,7 @@ import { PhotoAlbumViewComponent } from './pages/photo-album-view/photo-album-vi
 import { GymPlansComponent } from './pages/gym-plans/gym-plans.component';
 import { GymPlanViewComponent } from './pages/gym-plan-view/gym-plan-view.component';
 import { GymPlanFormComponent } from './shared/components/gym-plan-form/gym-plan-form.component';
+import { GymPlanAiFormComponent } from './shared/components/gym-plan-ai-form/gym-plan-ai-form.component';
 
 export const routes: Routes = [
     {
@@ -40,6 +41,9 @@ export const routes: Routes = [
     },
     {
         path: 'gym-plans/create', component: GymPlanFormComponent
+    },
+    {
+        path: 'gym-plans/generate', component: GymPlanAiFormComponent
     },
     {
         path: 'gym-plans/:id', component: GymPlanViewComponent
