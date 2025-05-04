@@ -1,5 +1,5 @@
 import { Component, effect, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthState } from '../../shared/states/auth.state';
 import { PhotoAlbumState } from '../../shared/states/photo-album.state';
 import { PhotoAlbum } from '../../shared/models/photo-album.model';
@@ -11,7 +11,7 @@ import { PhotoAlbumService } from '../../shared/services/photo-album.service';
 
 @Component({
   selector: 'app-photo-album-view',
-  imports: [CommonModule, FormsModule, ImageUploadComponent],
+  imports: [CommonModule, FormsModule, ImageUploadComponent, RouterModule],
   templateUrl: './photo-album-view.component.html',
   styleUrl: './photo-album-view.component.css'
 })
