@@ -1,4 +1,15 @@
 <div class="container">
+    <div class="d-flex align-items-center mb-4">
+        <!-- Back Button -->
+        <a routerLink="/gym-plans" class="btn btn-outline-secondary me-3">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+        <!-- Title -->
+        <h3 class="mb-0">
+            {{ isEditMode ? 'Update Gym Plan' : 'Add Gym Plan' }}
+        </h3>
+    </div>
+
     <form [formGroup]="gymPlanForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="name">Gym Plan Name</label>

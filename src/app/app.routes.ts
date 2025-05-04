@@ -8,6 +8,7 @@ import { PhotoAlbumsComponent } from './pages/photo-albums/photo-albums.componen
 import { PhotoAlbumViewComponent } from './pages/photo-album-view/photo-album-view.component';
 import { GymPlansComponent } from './pages/gym-plans/gym-plans.component';
 import { GymPlanViewComponent } from './pages/gym-plan-view/gym-plan-view.component';
+import { GymPlanFormComponent } from './shared/components/gym-plan-form/gym-plan-form.component';
 
 export const routes: Routes = [
     {
@@ -38,8 +39,15 @@ export const routes: Routes = [
         path: 'gym-plans', component: GymPlansComponent
     },
     {
+        path: 'gym-plans/create', component: GymPlanFormComponent
+    },
+    {
         path: 'gym-plans/:id', component: GymPlanViewComponent
     },
+    {
+        path: 'gym-plans/:id/update', component: GymPlanFormComponent
+    },
+
     {
         path: '**', redirectTo: 'account'
     }

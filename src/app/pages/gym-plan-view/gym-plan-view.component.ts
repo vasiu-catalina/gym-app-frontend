@@ -1,6 +1,6 @@
 import { Component, effect, OnInit } from '@angular/core';
 import { GymPlanState } from '../../shared/states/gym-plan.state';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GymPlan } from '../../shared/models/gym-plan.model';
 import { GymPlanService } from '../../shared/services/gym-plan.service';
 import { AuthState } from '../../shared/states/auth.state';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-gym-plan-view',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './gym-plan-view.component.html',
   styleUrl: './gym-plan-view.component.css'
 })
@@ -20,7 +20,9 @@ export class GymPlanViewComponent {
 
   constructor(private gymPlanState: GymPlanState,
     private authState: AuthState,
-    private route: ActivatedRoute, private gymPlanService: GymPlanService) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private gymPlanService: GymPlanService) {
 
     effect(() => {
       if (this.authState.isLoggedIn()) {
@@ -50,5 +52,17 @@ export class GymPlanViewComponent {
         console.log(err);
       }
     })
+  }
+
+  deletePlan() {
+    this.gymPlanService.deleteGymPlan(this.userId, this.gymPlan!.id).subscribe({
+      next: () => {
+        this.gymPlanState.removeGymPlan(this.gymPlan!.id);
+        this.router.navigate(['/gym-plans']);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 }
