@@ -10,6 +10,7 @@ import { GymPlansComponent } from './pages/gym-plans/gym-plans.component';
 import { GymPlanViewComponent } from './pages/gym-plan-view/gym-plan-view.component';
 import { GymPlanFormComponent } from './shared/components/gym-plan-form/gym-plan-form.component';
 import { GymPlanAiFormComponent } from './shared/components/gym-plan-ai-form/gym-plan-ai-form.component';
+import { WorkoutLogFormComponent } from './shared/components/workout-log-form/workout-log-form.component';
 
 export const routes: Routes = [
     {
@@ -51,7 +52,9 @@ export const routes: Routes = [
     {
         path: 'gym-plans/:id/update', component: GymPlanFormComponent
     },
-
+    {
+        path: 'gym-plans/:id/workout-logs/create', component: WorkoutLogFormComponent
+    },
     {
         path: '**', redirectTo: 'account'
     }

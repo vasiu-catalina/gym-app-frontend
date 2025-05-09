@@ -1,10 +1,11 @@
 import { Component, effect, OnInit } from '@angular/core';
 import { GymPlanState } from '../../shared/states/gym-plan.state';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { GymPlan } from '../../shared/models/gym-plan.model';
+import { Day, GymPlan } from '../../shared/models/gym-plan.model';
 import { GymPlanService } from '../../shared/services/gym-plan.service';
 import { AuthState } from '../../shared/states/auth.state';
 import { CommonModule } from '@angular/common';
+import { WorkoutLogState } from '../../shared/states/workout-log.state';
 
 @Component({
   selector: 'app-gym-plan-view',
@@ -22,7 +23,8 @@ export class GymPlanViewComponent {
     private authState: AuthState,
     private route: ActivatedRoute,
     private router: Router,
-    private gymPlanService: GymPlanService) {
+    private gymPlanService: GymPlanService,
+    private workoutLogState: WorkoutLogState) {
 
     effect(() => {
       if (this.authState.isLoggedIn()) {
@@ -64,5 +66,11 @@ export class GymPlanViewComponent {
         console.error(err);
       }
     });
+  }
+
+
+  logDay(day: Day) {
+    this.workoutLogState.setGymDay(day);
+    this.router.navigate([`/gym-plans/${this.gymPlan!.id}/workout-logs/create`]);
   }
 }

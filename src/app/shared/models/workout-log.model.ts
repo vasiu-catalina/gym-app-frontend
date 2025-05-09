@@ -1,10 +1,17 @@
-export interface Exercise {
-    id: string;
-    name: string;
+export interface WorkoutSet {
+    id: string,
     setNr: number;
     nrReps: number;
     weight: number;
     duration: number;
+    completed: boolean;
+}
+
+export interface WorkoutLogExercise {
+    id: string;
+    name: string;
+    sets: WorkoutSet[];
+
 }
 
 export interface WorkoutLog {
@@ -14,7 +21,7 @@ export interface WorkoutLog {
     description: string;
     duration: number;
     date: Date;
-    exercises: Exercise[];
+    exercises: WorkoutLogExercise[];
 }
 
 export interface WorkoutLogPreview {
@@ -26,3 +33,7 @@ export interface WorkoutLogPreview {
     date: Date;
     exercises: number;
 }
+
+
+
+

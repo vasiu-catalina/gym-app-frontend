@@ -38,10 +38,17 @@
 
     <!-- Days in the Plan -->
     <div class="row g-4">
-        <div *ngFor="let day of gymPlan.days" class="col-12">
+        <div *ngFor="let day of gymPlan.days; let i = index" class="col-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">{{ day.name }}</h5>
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                        <span>{{ day.name }}</span>
+                        <a class="btn btn-outline-primary btn-sm"
+                        (click)="logDay(day)">
+                            <i class="bi bi-plus me-1"></i> Log this day
+                        </a>
+                    </h5>
+
                     <p class="card-text text-muted">{{ day.description }}</p>
 
                     <div *ngIf="day.exercises.length > 0; else noExercises">

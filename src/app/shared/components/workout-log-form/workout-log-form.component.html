@@ -1,0 +1,54 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()" *ngIf="gymDay">
+    <h3>{{ form.get('name')?.value }}</h3>
+    <p>{{ form.get('description')?.value }}</p>
+
+    <div formArrayName="exercises">
+        <div *ngFor="let exGroup of exercises.controls; let exIndex = index" [formGroupName]="exIndex"
+            class="mb-4 border rounded p-3">
+            <h5 class="fw-bold mb-3">{{ exGroup.get('name')?.value }}</h5>
+
+            <div formArrayName="sets">
+                <div *ngFor="let setGroup of getSets(exIndex).controls; let setIndex = index" [formGroupName]="setIndex"
+                    class="mb-3 border-bottom pb-2">
+
+                    <!-- Top row: Set title, remove, completed -->
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="fw-semibold">Set {{ setGroup.get('setNr')?.value }}</span>
+                            <button type="button" class="btn btn-sm btn-outline-danger px-2 py-0"
+                                (click)="removeSet(exIndex, setIndex)">−</button>
+                        </div>
+
+                    </div>
+
+                    <!-- Bottom row: Inputs -->
+                    <div class="d-flex gap-2 flex-wrap">
+                        <input type="number" formControlName="nrReps" placeholder="Reps"
+                            class="form-control form-control-sm w-auto" />
+
+                        <input type="number" formControlName="weight" placeholder="Kg"
+                            class="form-control form-control-sm w-auto" />
+
+                        <input type="number" formControlName="duration" placeholder="Min"
+                            class="form-control form-control-sm w-auto" />
+                        <button type="button" class="btn btn-sm p-0 border-0 bg-transparent"
+                            (click)="setGroup.patchValue({ completed: !setGroup.get('completed')?.value })">
+                            <i class="bi"
+                                [ngClass]="{'bi-check-circle-fill text-success': setGroup.get('completed')?.value, 'bi-circle text-muted': !setGroup.get('completed')?.value}"
+                                style="font-size: 1.2rem;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end mt-2">
+                <button type="button" class="btn btn-sm btn-outline-primary" (click)="addSet(exIndex)">+ Add
+                    Set</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-end mt-3">
+        <button type="submit" class="btn btn-success">Submit Workout Log</button>
+    </div>
+</form>
