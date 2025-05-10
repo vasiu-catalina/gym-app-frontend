@@ -1,0 +1,56 @@
+<div class="container mt-4 mb-5">
+    <h2 class="mb-4">Workout Logs</h2>
+
+    <div *ngIf="workoutLogs.length === 0" class="alert alert-info">
+        No workout logs available.
+    </div>
+
+    <div class="list-group">
+        <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2"
+            *ngFor="let log of workoutLogs">
+            <div class="flex-grow-1">
+                <h5 class="mb-1">{{ log.name }}</h5>
+                <p class="mb-1 text-muted">{{ log.description }}</p>
+                <small class="text-muted">
+                    {{ log.date | date: 'mediumDate' }} • {{ log.duration }} min •
+                    {{ log.exercises }} exercises
+                </small>
+                <div class="mt-1 text-muted small">Logged by: {{ log.user }}</div>
+            </div>
+
+            <div class="btn-group ms-md-3 mt-2 mt-md-0">
+                <button class="btn btn-outline-primary btn-sm" (click)="updateLog(log.id)">
+                    Update
+                </button>
+                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#confirmDeleteModal" (click)="selectLogToDelete(log.id)">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this workout log?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-danger" (click)="confirmDelete()" data-bs-dismiss="modal">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

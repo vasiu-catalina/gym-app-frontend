@@ -71,6 +71,6 @@ export class GymPlanViewComponent {
 
   logDay(day: Day) {
     this.workoutLogState.setGymDay(day);
-    this.router.navigate([`/gym-plans/${this.gymPlan!.id}/workout-logs/create`]);
+    this.router.navigate([`/workout-logs/create`]);
   }
 }

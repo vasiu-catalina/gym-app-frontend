@@ -24,7 +24,7 @@ export class WorkoutLogService {
     return this.http.get(`${this.url}/${userId}/workout-logs/${logId}`);
   }
 
-  updateLog(userId: string, logId: string, data: WorkoutLog) {
+  updateLog(userId: string, logId: string, data: any) {
     return this.http.put(`${this.url}/${userId}/workout-logs/${logId}`, data);
   }
 

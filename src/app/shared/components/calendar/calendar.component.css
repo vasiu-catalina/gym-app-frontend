@@ -1,0 +1,22 @@
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.day {
+    background-color: white;
+    border: 1px solid #343a40;
+    /* dark gray */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.day:hover {
+    background-color: #f1f1f1;
+}
+
+.calendar-wrapper {
+    background-color: white;
+}

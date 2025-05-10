@@ -1,0 +1,31 @@
+<div class="calendar-wrapper bg-white p-3 rounded shadow">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <button class="btn btn-outline-dark btn-sm" (click)="prevMonth()"><</button>
+        <h5 class="mb-0">
+            {{ currentDate() | date: 'MMMM yyyy' }}
+        </h5>
+        <button class="btn btn-outline-dark btn-sm" (click)="nextMonth()">></button>
+    </div>
+
+    <div class="calendar grid mb-4">
+        <div class="day border p-2 text-center" *ngFor="let day of daysInMonth()" (click)="selectDate(day)"
+            data-bs-toggle="modal" data-bs-target="#dateModal">
+            {{ day.getDate() }}
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dateModalLabel">Selected Date</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ selectedDate() | date: 'fullDate' }}
+            </div>
+        </div>
+    </div>
+</div>
