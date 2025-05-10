@@ -1,82 +1,95 @@
-<form [formGroup]="form" (ngSubmit)="submitForm()" *ngIf="form && (gymDay || logId)">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>{{ form.get('name')?.value }}</h3>
-        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" type="button"
-            data-bs-target="#confirmDeleteWorkoutModal">
-            Delete Log
-        </button>
+<div class="container mt-4 mb-5">
+
+    <div class="d-flex justify-content-center align-items-center position-relative mb-5">
+        <!-- Back Button -->
+        <a routerLink="/workout-logs" class="btn btn-outline-secondary position-absolute start-0">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+
+        <!-- Centered Title -->
+        <h3 class="mb-0 text-center">{{logId ? 'Update' : 'Create '}}Workout Log</h3>
     </div>
-    <p>{{ form.get('description')?.value }}</p>
 
-    <div formArrayName="exercises">
-        <div *ngFor="let exGroup of exercises.controls; let exIndex = index" [formGroupName]="exIndex"
-            class="mb-4 border rounded p-3">
+    <form [formGroup]="form" (ngSubmit)="submitForm()" *ngIf="form && (gymDay || logId)">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>{{ form.get('name')?.value }}</h3>
+            <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" type="button"
+                data-bs-target="#confirmDeleteWorkoutModal">
+                Delete Log
+            </button>
+        </div>
+        <p>{{ form.get('description')?.value }}</p>
 
-            <h5 class="fw-bold mb-0">{{ exGroup.get('name')?.value }}</h5>
+        <div formArrayName="exercises">
+            <div *ngFor="let exGroup of exercises.controls; let exIndex = index" [formGroupName]="exIndex"
+                class="mb-4 border rounded p-3">
 
-            <div formArrayName="sets">
-                <div *ngFor="let setGroup of getSets(exIndex).controls; let setIndex = index" [formGroupName]="setIndex"
-                    class="mb-3 border-bottom pb-2">
+                <h5 class="fw-bold mb-0">{{ exGroup.get('name')?.value }}</h5>
 
-                    <!-- Top row: Set title, remove, completed -->
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="fw-semibold">Set {{ setGroup.get('setNr')?.value }}</span>
-                            <button type="button" class="btn btn-sm btn-outline-danger px-2 py-0"
-                                (click)="removeSet(exIndex, setIndex)">−</button>
+                <div formArrayName="sets">
+                    <div *ngFor="let setGroup of getSets(exIndex).controls; let setIndex = index"
+                        [formGroupName]="setIndex" class="mb-3 border-bottom pb-2">
+
+                        <!-- Top row: Set title, remove, completed -->
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-semibold">Set {{ setGroup.get('setNr')?.value }}</span>
+                                <button type="button" class="btn btn-sm btn-outline-danger px-2 py-0"
+                                    (click)="removeSet(exIndex, setIndex)">−</button>
+                            </div>
+
                         </div>
 
-                    </div>
+                        <!-- Bottom row: Inputs -->
+                        <div class="d-flex gap-2 flex-wrap">
+                            <input type="number" formControlName="nrReps" placeholder="Reps"
+                                class="form-control form-control-sm w-auto" />
 
-                    <!-- Bottom row: Inputs -->
-                    <div class="d-flex gap-2 flex-wrap">
-                        <input type="number" formControlName="nrReps" placeholder="Reps"
-                            class="form-control form-control-sm w-auto" />
+                            <input type="number" formControlName="weight" placeholder="Kg"
+                                class="form-control form-control-sm w-auto" />
 
-                        <input type="number" formControlName="weight" placeholder="Kg"
-                            class="form-control form-control-sm w-auto" />
-
-                        <input type="number" formControlName="duration" placeholder="Min"
-                            class="form-control form-control-sm w-auto" />
-                        <button type="button" class="btn btn-sm p-0 border-0 bg-transparent"
-                            (click)="setGroup.patchValue({ completed: !setGroup.get('completed')?.value })">
-                            <i class="bi"
-                                [ngClass]="{'bi-check-circle-fill text-success': setGroup.get('completed')?.value, 'bi-circle text-muted': !setGroup.get('completed')?.value}"
-                                style="font-size: 1.2rem;"></i>
-                        </button>
+                            <input type="number" formControlName="duration" placeholder="Min"
+                                class="form-control form-control-sm w-auto" />
+                            <button type="button" class="btn btn-sm p-0 border-0 bg-transparent"
+                                (click)="setGroup.patchValue({ completed: !setGroup.get('completed')?.value })">
+                                <i class="bi"
+                                    [ngClass]="{'bi-check-circle-fill text-success': setGroup.get('completed')?.value, 'bi-circle text-muted': !setGroup.get('completed')?.value}"
+                                    style="font-size: 1.2rem;"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="text-end mt-2">
-                <button type="button" class="btn btn-sm btn-outline-primary" (click)="addSet(exIndex)">+ Add
-                    Set</button>
+                <div class="text-end mt-2">
+                    <button type="button" class="btn btn-sm btn-outline-primary" (click)="addSet(exIndex)">+ Add
+                        Set</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="text-end mt-3">
-        <button type="submit" class="btn btn-success">Submit Workout Log</button>
-    </div>
-</form>
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-success">Submit Workout Log</button>
+        </div>
+    </form>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="confirmDeleteWorkoutModal" tabindex="-1" aria-labelledby="confirmDeleteWorkoutModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="confirmDeleteWorkoutModalLabel">Confirm Deletion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to permanently delete this workout log?
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger" (click)="deleteWorkoutLog()" data-bs-dismiss="modal">
-                    Delete
-                </button>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="confirmDeleteWorkoutModal" tabindex="-1"
+        aria-labelledby="confirmDeleteWorkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="confirmDeleteWorkoutModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to permanently delete this workout log?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-danger" (click)="deleteWorkoutLog()" data-bs-dismiss="modal">
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
     </div>

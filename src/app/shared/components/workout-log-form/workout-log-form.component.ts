@@ -8,7 +8,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthState } from '../../states/auth.state';
 import { CommonModule } from '@angular/common';
 import { WorkoutLog } from '../../models/workout-log.model';
@@ -19,7 +19,7 @@ import { WorkoutLogService } from '../../services/workout-log.service';
     standalone: true,
     templateUrl: './workout-log-form.component.html',
     styleUrl: './workout-log-form.component.css',
-    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
 })
 export class WorkoutLogFormComponent {
     gymDay: Day | null = null;

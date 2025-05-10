@@ -1,5 +1,15 @@
 <div class="container mt-4 mb-5">
-    <h2 class="mb-4">Workout Logs</h2>
+
+
+    <div class="d-flex justify-content-center align-items-center position-relative mb-5">
+        <!-- Back Button -->
+        <a routerLink="/" class="btn btn-outline-secondary position-absolute start-0">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+
+        <!-- Centered Title -->
+        <h3 class="mb-0 text-center">Workout Logs</h3>
+    </div>
 
     <div *ngIf="workoutLogs.length === 0" class="alert alert-info">
         No workout logs available.
