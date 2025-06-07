@@ -26,7 +26,7 @@ export class GymPlansComponent implements OnInit {
     effect(() => {
       if (this.authState.isLoggedIn()) {
         this.userId = this.authState.getUserId() || '';
-        this.fetchGymPlans();
+       
       }
     });
 
@@ -37,16 +37,6 @@ export class GymPlansComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  fetchGymPlans() {
-    this.gymPlanService.getUsersGymPlans(this.userId).subscribe({
-      next: (res: any) => {
-        this.gymPlanState.setGymPlans(res.gymPlans);
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
-  }
 
   deletePlan() {
     if (!this.selectedPlan) return;

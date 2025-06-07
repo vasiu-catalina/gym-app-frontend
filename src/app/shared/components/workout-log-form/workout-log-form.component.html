@@ -7,7 +7,7 @@
         </a>
 
         <!-- Centered Title -->
-        <h3 class="mb-0 text-center">{{logId ? 'Update' : 'Create '}}Workout Log</h3>
+        <h3 class="mb-0 text-center">{{logId ? 'Update' : 'Create '}} Workout Log</h3>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="submitForm()" *ngIf="form && (gymDay || logId)">

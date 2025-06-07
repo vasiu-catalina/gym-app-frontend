@@ -1,19 +1,36 @@
 <div class="calendar-wrapper bg-white p-3 rounded shadow">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <button class="btn btn-outline-dark btn-sm" (click)="prevMonth()"><</button>
+        <button class="btn btn-outline-dark btn-sm" (click)="prevMonth()">&lt;</button>
         <h5 class="mb-0">
             {{ currentDate() | date: 'MMMM yyyy' }}
         </h5>
-        <button class="btn btn-outline-dark btn-sm" (click)="nextMonth()">></button>
+        <button class="btn btn-outline-dark btn-sm" (click)="nextMonth()">&gt;</button>
     </div>
 
-    <div class="calendar grid mb-4">
-        <div class="day border p-2 text-center" *ngFor="let day of daysInMonth()" (click)="selectDate(day)"
-            data-bs-toggle="modal" data-bs-target="#dateModal">
-            {{ day.getDate() }}
+    <!-- Weekday Headers -->
+    <div class="calendar grid mb-1" style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;">
+        <div class="fw-bold text-secondary">MO</div>
+        <div class="fw-bold text-secondary">TU</div>
+        <div class="fw-bold text-secondary">WE</div>
+        <div class="fw-bold text-secondary">TH</div>
+        <div class="fw-bold text-secondary">FR</div>
+        <div class="fw-bold text-secondary">SA</div>
+        <div class="fw-bold text-secondary">SU</div>
+    </div>
+
+    <!-- Calendar Days -->
+    <div class="calendar grid mb-4" style="display: grid; grid-template-columns: repeat(7, 1fr);">
+        <div class="day border p-2 text-center" *ngFor="let day of daysInMonth()" [ngClass]="{
+            'bg-success text-white': day && isWorkoutLogForDate(day),
+            'bg-danger-subtle text-danger': day && !isWorkoutLogForDate(day) && isPast(day)
+          }" (click)="day && selectDate(day)" [attr.data-bs-toggle]="day ? 'modal' : null"
+            [attr.data-bs-target]="day ? '#dateModal' : null">
+            {{ day?.getDate() }}
         </div>
     </div>
+
 </div>
+
 
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true">
@@ -24,8 +41,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{ selectedDate() | date: 'fullDate' }}
+                <div class="mb-3">
+                    <h6 class="text-muted">Selected Date:</h6>
+                    <p class="fw-semibold">{{ selectedDate() | date: 'fullDate' }}</p>
+                </div>
+
+                <hr>
+
+                <div *ngIf="selectedWorkoutLog; else noLog">
+                    <h5 class="text-primary mb-2">{{ selectedWorkoutLog.name }}</h5>
+
+                    <p><strong>Description:</strong> {{ selectedWorkoutLog.description }}</p>
+
+                    <div class="d-flex flex-wrap gap-3 mt-3">
+                        <div class="p-2 bg-light rounded border">
+                            <strong>Duration:</strong><br> {{ selectedWorkoutLog.duration }} mins
+                        </div>
+                        <div class="p-2 bg-light rounded border">
+                            <strong>Exercises:</strong><br> {{ selectedWorkoutLog.exercises }}
+                        </div>
+                        <div class="p-2">
+                            <button class="btn btn-success" data-bs-dismiss="modal"
+                                routerLink="/workout-logs/681d80a5cd7d40eefff1d72f/update">Edit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #noLog>
+                    <p class="text-muted fst-italic">No workout log found for this date.</p>
+                </ng-template>
             </div>
+
         </div>
     </div>
 </div>

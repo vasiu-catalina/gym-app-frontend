@@ -26,7 +26,6 @@ export class WorkoutLogsComponent {
     effect(() => {
       if (this.authState.isLoggedIn()) {
         this.userId = this.authState.getUserId() || '';
-        this.fetchLogs();
       }
     })
 
@@ -34,21 +33,6 @@ export class WorkoutLogsComponent {
       this.workoutLogs = this.workoutlogState.workoutLogs();
     })
   }
-
-
-  fetchLogs() {
-    this.workoutLogService.getLogs(this.userId).subscribe({
-      next: (res: any) => {
-        this.workoutlogState.setWorkoutLogs(res.workoutLogs);
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
-  }
-
-
 
 
   selectLogToDelete(logId: string) {
