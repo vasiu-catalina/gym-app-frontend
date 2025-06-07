@@ -8,10 +8,11 @@ import { GymPlanService } from './shared/services/gym-plan.service';
 import { GymPlanState } from './shared/states/gym-plan.state';
 import { WorkoutLogState } from './shared/states/workout-log.state';
 import { WorkoutLogService } from './shared/services/workout-log.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, OffcanvasComponent],
+  imports: [CommonModule, RouterOutlet, OffcanvasComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -30,7 +31,7 @@ export class AppComponent {
 
     effect(() => {
 
-      if (this.authState.isLoggedIn()) {
+      if (this.isLoggedIn()) {
         this.userId = this.authState.getUserId() || '';
 
         this.fetchUser();
@@ -38,6 +39,10 @@ export class AppComponent {
         this.fetchGymPlans();
       }
     })
+  }
+
+  isLoggedIn() {
+    return this.authState.isLoggedIn();
   }
 
 

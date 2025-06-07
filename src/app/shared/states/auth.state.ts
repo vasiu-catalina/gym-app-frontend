@@ -7,7 +7,21 @@ export class AuthState {
 
     private _accessToken = signal<string | null>(null);
 
-    isLoggedIn = computed(() => !!this._accessToken());
+    isLoggedIn = computed(() => {
+        const token = this._accessToken();
+        if (!token) return false;
+
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const exp = payload?.exp;
+            if (!exp) return false;
+
+            const now = Math.floor(Date.now() / 1000);
+            return exp > now;
+        } catch (e) {
+            return false;
+        }
+    });
 
     constructor(private cookieService: CookieService) {
         const token = this.cookieService.get(this.cookieKey);

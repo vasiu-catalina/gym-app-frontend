@@ -13,6 +13,7 @@ import { GymPlanAiFormComponent } from './shared/components/gym-plan-ai-form/gym
 import { WorkoutLogFormComponent } from './shared/components/workout-log-form/workout-log-form.component';
 import { HomeComponent } from './pages/home/home.component';
 import { WorkoutLogsComponent } from './pages/workout-logs/workout-logs.component';
+import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -22,51 +23,57 @@ export const routes: Routes = [
         path: 'register', component: RegisterComponent
     },
     {
-        path: 'account', component: AccountComponent
-    },
-    {
-        path: 'measurements', component: MeasurementsComponent
-    },
-    {
-        path: 'measurements/create', component: MeasurementformComponent
-    },
-    {
-        path: 'measurements/update/:id', component: MeasurementformComponent
-    },
-    {
-        path: 'photo-albums', component: PhotoAlbumsComponent
-    },
-    {
-        path: 'photo-albums/:id', component: PhotoAlbumViewComponent
-    },
-    {
-        path: 'gym-plans', component: GymPlansComponent
-    },
-    {
-        path: 'gym-plans/create', component: GymPlanFormComponent
-    },
-    {
-        path: 'gym-plans/generate', component: GymPlanAiFormComponent
-    },
-    {
-        path: 'gym-plans/:id', component: GymPlanViewComponent
-    },
-    {
-        path: 'gym-plans/:id/update', component: GymPlanFormComponent
-    },
-    {
-        path: 'workout-logs/create', component: WorkoutLogFormComponent
-    },
-    {
-        path: 'workout-logs', component: WorkoutLogsComponent
-    },
-    {
-        path: 'workout-logs/:id/update', component: WorkoutLogFormComponent
-    },
-    {
-        path: '', component: HomeComponent,
-    },
-    {
-        path: '**', redirectTo: 'account'
+        path: '',
+        canActivate: [authGuard],
+        children: [
+            {
+                path: 'account', component: AccountComponent
+            },
+            {
+                path: 'measurements', component: MeasurementsComponent
+            },
+            {
+                path: 'measurements/create', component: MeasurementformComponent
+            },
+            {
+                path: 'measurements/update/:id', component: MeasurementformComponent
+            },
+            {
+                path: 'photo-albums', component: PhotoAlbumsComponent
+            },
+            {
+                path: 'photo-albums/:id', component: PhotoAlbumViewComponent
+            },
+            {
+                path: 'gym-plans', component: GymPlansComponent
+            },
+            {
+                path: 'gym-plans/create', component: GymPlanFormComponent
+            },
+            {
+                path: 'gym-plans/generate', component: GymPlanAiFormComponent
+            },
+            {
+                path: 'gym-plans/:id', component: GymPlanViewComponent
+            },
+            {
+                path: 'gym-plans/:id/update', component: GymPlanFormComponent
+            },
+            {
+                path: 'workout-logs/create', component: WorkoutLogFormComponent
+            },
+            {
+                path: 'workout-logs', component: WorkoutLogsComponent
+            },
+            {
+                path: 'workout-logs/:id/update', component: WorkoutLogFormComponent
+            },
+            {
+                path: '', component: HomeComponent,
+            },
+            {
+                path: '**', redirectTo: 'account'
+            }
+        ]
     }
 ];
