@@ -9,6 +9,8 @@ import { GymPlanState } from './shared/states/gym-plan.state';
 import { WorkoutLogState } from './shared/states/workout-log.state';
 import { WorkoutLogService } from './shared/services/workout-log.service';
 import { CommonModule } from '@angular/common';
+import { MeasurementState } from './shared/states/measurement.state';
+import { MeasurementService } from './shared/services/measurement.service';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +29,8 @@ export class AppComponent {
     private gymPlanService: GymPlanService,
     private workoutlogState: WorkoutLogState,
     private workoutLogService: WorkoutLogService,
+    private measurementState: MeasurementState,
+    private measurementService: MeasurementService
   ) {
 
     effect(() => {
@@ -37,6 +41,7 @@ export class AppComponent {
         this.fetchUser();
         this.fetchLogs();
         this.fetchGymPlans();
+        this.fetchMeasurements();
       }
     })
   }
@@ -73,6 +78,19 @@ export class AppComponent {
     this.workoutLogService.getLogs(this.userId).subscribe({
       next: (res: any) => {
         this.workoutlogState.setWorkoutLogs(res.workoutLogs);
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  fetchMeasurements() {
+    this.measurementService.getAllMeasurements(this.userId).subscribe({
+      next: (res: any) => {
+        this.measurementState.setMeasurements(res.measurements);
+        console.log(this.measurementState.getMeasurements());
         console.log(res);
       },
       error: (err) => {

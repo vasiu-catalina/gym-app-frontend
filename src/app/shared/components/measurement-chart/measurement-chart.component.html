@@ -1,0 +1,18 @@
+<div class="p-4 max-w-xl mx-auto">
+    <h2 class="text-xl font-bold mb-4">Measurement Chart</h2>
+
+    <div class="flex gap-4 mb-4">
+        <select class="p-2 border rounded" [(ngModel)]="selectedType" (change)="filterData()">
+            <option *ngFor="let type of measurementTypes" [value]="type">{{ type }}</option>
+        </select>
+
+        <select class="p-2 border rounded" [(ngModel)]="selectedRange" (change)="filterData()">
+            <option value="week">Last Week</option>
+            <option value="month">Last Month</option>
+            <option value="year">Last Year</option>
+        </select>
+    </div>
+
+    <canvas baseChart [data]="chartData" [type]="chartType" [options]="chartOptions">
+    </canvas>
+</div>
