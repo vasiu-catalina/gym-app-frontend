@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '../../shared/services/auth.service';
 import { AuthState } from '../../shared/states/auth.state';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   error: string | null = null;
   loading = false;
 
-  form !: FormGroup;
+  form : FormGroup = new FormGroup({});
 
   constructor(
     private router: Router,
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fb.group({
+    this.form = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       birthDate: ['', Validators.required],
