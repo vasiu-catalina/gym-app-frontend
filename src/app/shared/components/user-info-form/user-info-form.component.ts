@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { UserState } from '../../states/user.state';
 import { User } from '../../models/user.model';
 import { AuthState } from '../../states/auth.state';
+import { formatDateForInput } from '../../functions/formatDateForInput';
 
 @Component({
   selector: 'app-user-info-form',
@@ -58,9 +59,8 @@ export class UserInfoFormComponent implements OnInit {
       lastname: [this.user?.lastname, Validators.required],
       email: [this.user?.email, [Validators.required, Validators.email]],
       phone: [this.user?.phone, Validators.required],
-      birthDate: [this.user?.birthDate, Validators.required],
+      birthDate: [formatDateForInput(this.user?.birthDate || new Date()), Validators.required],
       gender: [this.user?.gender, Validators.required],
-      role: [this.user?.role, Validators.required],
     });
   }
 

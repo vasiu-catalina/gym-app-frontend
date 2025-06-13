@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { GymPlanService } from '../../services/gym-plan.service';
 import { AuthState } from '../../states/auth.state';
+import { GymPlanState } from '../../states/gym-plan.state';
 
 @Component({
   selector: 'app-gym-plan-ai-form',
@@ -26,7 +27,7 @@ export class GymPlanAiFormComponent implements OnInit {
   weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   muscleGroups = ['Chest', 'Back', 'Legs', 'Glutes', 'Arms', 'Shoulders', 'Core'];
 
-  constructor(private fb: FormBuilder, private router: Router, private gymPlanService: GymPlanService, private authState: AuthState) {
+  constructor(private fb: FormBuilder, private router: Router, private gymPlanService: GymPlanService, private authState: AuthState, private gymPlanState: GymPlanState) {
 
     effect(() => {
       if (this.authState.isLoggedIn()) {
@@ -78,6 +79,7 @@ export class GymPlanAiFormComponent implements OnInit {
     this.gymPlanService.generateGymPlan(this.userId, this.aiForm.value).subscribe({
       next: (res) => {
         console.log(res);
+        this.gymPlanState.addGymPlan(res.gymPlan);
         this.isSubmitting = false;
         this.router.navigate(['/gym-plans']);
       },

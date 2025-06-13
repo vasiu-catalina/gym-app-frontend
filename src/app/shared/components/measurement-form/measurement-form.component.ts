@@ -4,13 +4,13 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Measurement, MeasurementType } from '../../models/measurement.model';
 import { MeasurementService } from '../../services/measurement.service';
 import { AuthState } from '../../states/auth.state';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MeasurementState } from '../../states/measurement.state';
 
 @Component({
   selector: 'app-measurement-form',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './measurement-form.component.html',
   styleUrls: ['./measurement-form.component.css']
 })

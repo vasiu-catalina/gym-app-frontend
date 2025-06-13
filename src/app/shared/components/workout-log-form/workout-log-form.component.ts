@@ -13,6 +13,8 @@ import { AuthState } from '../../states/auth.state';
 import { CommonModule } from '@angular/common';
 import { WorkoutLog } from '../../models/workout-log.model';
 import { WorkoutLogService } from '../../services/workout-log.service';
+import { HttpResponse } from '@angular/common/http';
+import { formatDateForInput } from '../../functions/formatDateForInput';
 
 @Component({
     selector: 'app-workout-log-form',
@@ -104,7 +106,7 @@ export class WorkoutLogFormComponent {
         this.form = this.fb.group({
             name: [workout.name],
             description: [workout.description],
-            date: [new Date(workout.date)],
+            date: [formatDateForInput(workout.date)],
             exercises: this.fb.array(
                 workout.exercises.map((ex) =>
                     this.fb.group({
@@ -176,8 +178,8 @@ export class WorkoutLogFormComponent {
 
         if (this.isEditMode && this.logId) {
             this.workoutLogService.updateLog(this.userId, this.logId, workoutLog).subscribe({
-                next: (res) => {
-                    console.log('Updated:', res);
+                next: (res: any) => {
+                    this.workoutLogState.updateWorkoutLog(res.workoutLog);
                     this.router.navigate(['/workout-logs']);
                 },
                 error: (err) => {
@@ -186,8 +188,8 @@ export class WorkoutLogFormComponent {
             });
         } else {
             this.workoutLogService.createLog(this.userId, workoutLog).subscribe({
-                next: (res) => {
-                    console.log('Created:', res);
+                next: (res: any) => {
+                    this.workoutLogState.addWorkoutLog(res.workoutLog);
                     this.router.navigate(['/gym-plans']);
                 },
                 error: (err) => {

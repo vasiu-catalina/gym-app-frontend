@@ -35,4 +35,24 @@ export class WorkoutLogState {
     clearGymDay() {
         this._selectedGymDay.set(null);
     }
+
+    setWorkoutLogDay(day: Day) {
+        this.setGymDay(day);
+    }
+
+    addWorkoutLog(log: WorkoutLogPreview) {
+        this._workoutLogs.set([...this._workoutLogs(), log]);
+    }
+
+    updateWorkoutLog(updatedLog: WorkoutLogPreview) {
+        this._workoutLogs.set(
+            this._workoutLogs().map(log => log.id === updatedLog.id ? updatedLog : log)
+        );
+    }
+
+    removeWorkoutLog(logId: string) {
+        this._workoutLogs.set(
+            this._workoutLogs().filter(log => log.id !== logId)
+        );
+    }
 }

@@ -11,6 +11,12 @@
     </div>
 
     <form [formGroup]="form" (ngSubmit)="submitForm()" *ngIf="form && (gymDay || logId)">
+
+        <div class="mb-3">
+            <label for="logDate" class="form-label">Workout Date</label>
+            <input id="logDate" type="date" class="form-control" formControlName="date"
+                [value]="form.get('date')?.value | date:'yyyy-MM-dd'" />
+        </div>
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3>{{ form.get('name')?.value }}</h3>
             <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" type="button"

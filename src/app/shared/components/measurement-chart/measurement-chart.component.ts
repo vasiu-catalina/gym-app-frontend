@@ -82,7 +82,9 @@ export class MeasurementChartComponent {
         data: filtered.map(m => m.value),
         label: this.selectedType,
         fill: true,
-        tension: 0.3
+        tension: 0.3,
+        borderColor: 'rgba(0, 0, 139, 1)',
+        backgroundColor: 'rgba(173, 216, 230, 0.5)'
       }]
     };
   }

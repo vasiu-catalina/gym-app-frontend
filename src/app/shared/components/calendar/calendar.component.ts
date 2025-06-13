@@ -27,9 +27,7 @@ export class CalendarComponent {
     private workoutLogService: WorkoutLogService,) {
 
     effect(() => {
-      if (this.authState.isLoggedIn()) {
-        this.workoutLogs = this.workoutlogState.workoutLogs();
-      }
+      this.workoutLogs = this.workoutlogState.workoutLogs();
     })
     this.generateCalendar();
   }
