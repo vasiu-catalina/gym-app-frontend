@@ -38,7 +38,6 @@ export class GymPlanViewComponent {
 
     effect(() => {
       this.gymPlan = this.gymPlanState.gymPlan();
-      console.log(this.gymPlan);
     })
   }
 
@@ -51,7 +50,7 @@ export class GymPlanViewComponent {
       },
       error: (err) => {
         this.gymPlanState.clearGymPlan();
-        console.log(err);
+        console.error(err);
       }
     })
   }

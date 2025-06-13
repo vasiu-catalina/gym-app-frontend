@@ -55,7 +55,6 @@ export class AppComponent {
     this.userService.getUser(this.userId).subscribe({
       next: (res) => {
         this.userState.setUser(res.user);
-        console.log(res.user)
       },
       error: (err) => {
         console.error(err);
@@ -78,10 +77,9 @@ export class AppComponent {
     this.workoutLogService.getLogs(this.userId).subscribe({
       next: (res: any) => {
         this.workoutlogState.setWorkoutLogs(res.workoutLogs);
-        console.log(res);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       }
     })
   }
@@ -90,11 +88,9 @@ export class AppComponent {
     this.measurementService.getAllMeasurements(this.userId).subscribe({
       next: (res: any) => {
         this.measurementState.setMeasurements(res.measurements);
-        console.log(this.measurementState.getMeasurements());
-        console.log(res);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       }
     })
   }

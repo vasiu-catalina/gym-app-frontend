@@ -144,15 +144,14 @@ export class GymPlanFormComponent {
 
       req$.subscribe({
         next: (res) => {
-          console.log(res);
           this.router.navigate(['/gym-plans']);
         },
         error: (err) => {
-          console.log(err);
+          console.error(err);
         }
       });
     } else {
-      console.log('Form is invalid');
+      console.warn('Form is invalid');
     }
   }
 

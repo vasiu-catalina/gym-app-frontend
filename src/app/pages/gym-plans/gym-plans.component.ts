@@ -51,8 +51,4 @@ export class GymPlansComponent implements OnInit {
     });
   }
 
-  editPlan(plan: GymPlanSimple) {
-    console.log('Edit', plan.id);
-    // Example: this.router.navigate(['/gym-plans/edit', plan.id]);
-  }
 }

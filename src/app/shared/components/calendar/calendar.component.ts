@@ -35,16 +35,14 @@ export class CalendarComponent {
   generateCalendar() {
     const days: Date[] = [];
     const firstDay = new Date(this.currentDate().getFullYear(), this.currentDate().getMonth(), 1);
-    const dayOfWeek = firstDay.getDay(); // 0 (Sun) to 6 (Sat)
+    const dayOfWeek = firstDay.getDay();
 
-    const emptyCells = (dayOfWeek + 6) % 7; // Shift so Monday is index 0, Sunday is 6
+    const emptyCells = (dayOfWeek + 6) % 7;
 
-    // Fill in empty placeholders
     for (let i = 0; i < emptyCells; i++) {
-      days.push(null as any); // placeholder for alignment
+      days.push(null as any);
     }
 
-    // Fill in actual days
     const date = new Date(firstDay);
     while (date.getMonth() === this.currentDate().getMonth()) {
       days.push(new Date(date));

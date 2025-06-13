@@ -55,7 +55,6 @@ export class WorkoutLogsComponent {
 
   updateLog(logId: string) {
     this.router.navigate(['/workout-logs', logId, 'update']);
-    console.log('Update clicked for', logId);
   }
 
 }

@@ -183,7 +183,7 @@ export class WorkoutLogFormComponent {
                     this.router.navigate(['/workout-logs']);
                 },
                 error: (err) => {
-                    console.log(err);
+                    console.error(err);
                 },
             });
         } else {
@@ -193,7 +193,7 @@ export class WorkoutLogFormComponent {
                     this.router.navigate(['/gym-plans']);
                 },
                 error: (err) => {
-                    console.log(err);
+                    console.error(err);
                 },
             });
         }
@@ -206,7 +206,6 @@ export class WorkoutLogFormComponent {
 
         this.workoutLogService.deleteLog(this.userId, this.logId).subscribe({
             next: () => {
-                console.log('Workout log deleted');
                 this.router.navigate(['/workout-logs']);
             },
             error: err => {

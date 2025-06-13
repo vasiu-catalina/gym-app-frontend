@@ -47,7 +47,7 @@ export class UserInfoFormComponent implements OnInit {
         this.userState.setUser(user);
       },
       error: (err) => {
-        console.log(err.error.message);
+        console.error(err);
       }
     });
   }

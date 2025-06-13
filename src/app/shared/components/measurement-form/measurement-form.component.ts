@@ -22,7 +22,6 @@ export class MeasurementformComponent implements OnInit {
   form!: FormGroup;
   userId = '';
 
-  // Define valid units and types as per your backend schema
   units = ['kg', 'cm'];
   types = Object.values(MeasurementType);
 
@@ -49,10 +48,10 @@ export class MeasurementformComponent implements OnInit {
     }
 
     this.form = this.fb.group({
-      date: [this.measurement?.date ? this.formatDateTime(this.measurement.date) : '', Validators.required], // Date input is required
-      unit: [this.measurement?.unit || '', Validators.required], // Unit (kg/cm) is required
-      value: [this.measurement?.value || 0, [Validators.required, Validators.min(0)]], // Value must be >= 0
-      type: [this.measurement?.type || '', Validators.required] // Type selection is required
+      date: [this.measurement?.date ? this.formatDateTime(this.measurement.date) : '', Validators.required],
+      unit: [this.measurement?.unit || '', Validators.required],
+      value: [this.measurement?.value || 0, [Validators.required, Validators.min(0)]],
+      type: [this.measurement?.type || '', Validators.required]
     });
 
   }
@@ -66,19 +65,16 @@ export class MeasurementformComponent implements OnInit {
     } else {
       this.addMeasurement();
     }
-
-    console.log('Measurement Data:', this.form.value);
   }
 
 
   addMeasurement() {
     this.measurementService.createMeasurement(this.userId, this.form.value).subscribe({
       next: (res: Response) => {
-        console.log(res);
         this.router.navigate(['/measurements']);
       },
       error: (err: HttpErrorResponse) => {
-        console.log(err);
+        console.error(err);
       }
     })
   }
@@ -86,11 +82,10 @@ export class MeasurementformComponent implements OnInit {
   updateMeasurement() {
     this.measurementService.updateMeasurement(this.userId, this.measurement?.id || '', this.form.value).subscribe({
       next: (res: Response) => {
-        console.log(res);
         this.router.navigate(['/measurements']);
       },
       error: (err: HttpErrorResponse) => {
-        console.log(err);
+        console.error(err);
       }
     })
   }

@@ -79,12 +79,10 @@ export class PhotoAlbumViewComponent implements OnInit {
       .map(([id]) => id);
 
     this.deleteImages(imageIds);
-    console.log('Images to delete:', imageIds);
 
   }
 
   openUploadModal() {
-    console.log('Open crop/upload modal');
     this.imageUpload.openFileDialog();
 
   }
@@ -96,7 +94,7 @@ export class PhotoAlbumViewComponent implements OnInit {
         this.photoAlbumState.updateAlbum(res.album);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       }
     });
     this.selectMode = false;

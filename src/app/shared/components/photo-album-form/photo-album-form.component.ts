@@ -17,17 +17,15 @@ export class PhotoAlbumFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.albumForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]], // Name field (required and minimum 3 characters)
+      name: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
 
   onSubmit() {
     if (this.albumForm.valid) {
       const albumData = this.albumForm.value;
-      console.log('Creating Photo Album:', albumData);
-      // Here you would call a service to create the album in the backend
     } else {
-      console.log('Form is invalid');
+      console.warn('Form is invalid');
     }
   }
 }

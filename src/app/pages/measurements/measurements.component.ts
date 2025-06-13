@@ -16,8 +16,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class MeasurementsComponent {
 
-  measurements: Measurement[] = [];              // full list from state
-  filteredMeasurements: Measurement[] = [];      // what you display
+  measurements: Measurement[] = [];
+  filteredMeasurements: Measurement[] = [];
 
   selectedMeasurementId: string = '';
   user: User | null = null;
@@ -40,7 +40,7 @@ export class MeasurementsComponent {
 
     effect(() => {
       this.measurements = this.measurementState.getMeasurements();
-      this.filterMeasurements(); // re-apply filter on new data
+      this.filterMeasurements();
     });
   }
 
@@ -71,7 +71,7 @@ export class MeasurementsComponent {
         this.measurementState.setMeasurements(res.measurements);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       }
     });
   }

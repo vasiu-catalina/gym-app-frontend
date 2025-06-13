@@ -99,12 +99,11 @@ export class ImageUploadComponent implements OnInit {
     formData.append('date', datetimeValue);
     this.photoAlbumService.uploadImage(this.userId, this.photoAlbum.id, formData).subscribe({
       next: (res) => {
-        console.log(res.album);
         this.photoAlbum = res.album;
         this.photoAlbumState.updateAlbum(res.album);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       }
     })
     this.cancelCrop();

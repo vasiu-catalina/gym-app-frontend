@@ -75,16 +75,14 @@ export class GymPlanAiFormComponent implements OnInit {
 
     this.isSubmitting = true;
     const value: GymPlanAiRequest = this.aiForm.value;
-    console.log('AI Request:', value);
     this.gymPlanService.generateGymPlan(this.userId, this.aiForm.value).subscribe({
       next: (res) => {
-        console.log(res);
         this.gymPlanState.addGymPlan(res.gymPlan);
         this.isSubmitting = false;
         this.router.navigate(['/gym-plans']);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
         this.isSubmitting = false;
       }
     })

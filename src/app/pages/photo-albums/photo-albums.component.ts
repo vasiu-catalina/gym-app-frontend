@@ -96,7 +96,7 @@ export class PhotoAlbumsComponent {
         this.photoAlbumState.setPhotoAlbums(res.albums);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       }
     })
   }
