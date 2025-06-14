@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+/* styles.css or component CSS */
+body {
+  background-color: #ffe6f0;
+  /* light pink */
+  color: #3a3a3a;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #d63384 !important;
+}
+
+button:hover {
+  background-color: #c02672;
+}
+
+.handwriting-1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #d63384;
+}
+
+.handwriting-2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #a83279;
+}
+
+.handwriting-3 {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.7rem;
+  color: #e75480;
+}
+
+
+.btn-primary {
+  background-color: #c2185b !important;
+  border: #c2185b !important;
+}
+
+a.btn-outline-secondary:hover {
+  background-color: #c2185b;
+}

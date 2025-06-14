@@ -20,3 +20,8 @@
 .calendar-wrapper {
     background-color: white;
 }
+
+
+.calendar-wrapper .btn:hover {
+    background-color: #c2185b;
+}

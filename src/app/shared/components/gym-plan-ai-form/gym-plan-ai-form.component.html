@@ -1,9 +1,9 @@
 <div class="container mt-4 mb-5">
-    <div class="d-flex align-items-center mb-4">
-        <a routerLink="/gym-plans" class="btn btn-outline-secondary me-3">
+    <div class="d-flex align-items-center mb-4 position-relative">
+        <a routerLink="/gym-plans" class="btn btn-outline-secondary me-3 z-1">
             <i class="bi bi-arrow-left"></i>
         </a>
-        <h3>Generate AI Gym Plan</h3>
+        <h3 class="handwriting-2 mx-auto m-0">Generate AI Gym Plan</h3>
     </div>
 
     <form [formGroup]="aiForm" (ngSubmit)="onSubmit()" class="mt-3">

@@ -7,7 +7,7 @@
         </a>
 
         <!-- Centered Title -->
-        <h3 class="mb-0 text-center">{{logId ? 'Update' : 'Create '}} Workout Log</h3>
+        <h3 class="mb-0 text-center handwriting-2">{{logId ? 'Update' : 'Create '}} Workout Log</h3>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="submitForm()" *ngIf="form && (gymDay || logId)">
@@ -28,7 +28,7 @@
 
         <div formArrayName="exercises">
             <div *ngFor="let exGroup of exercises.controls; let exIndex = index" [formGroupName]="exIndex"
-                class="mb-4 border rounded p-3">
+                class="mb-4 border border-dark rounded p-3">
 
                 <h5 class="fw-bold mb-0">{{ exGroup.get('name')?.value }}</h5>
 

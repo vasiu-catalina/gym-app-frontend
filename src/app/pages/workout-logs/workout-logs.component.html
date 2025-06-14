@@ -8,7 +8,7 @@
         </a>
 
         <!-- Centered Title -->
-        <h3 class="mb-0 text-center">Workout Logs</h3>
+        <h3 class="mb-0 text-center handwriting-1">My Workout Logs</h3>
     </div>
 
     <div *ngIf="workoutLogs.length === 0" class="alert alert-info">
@@ -19,7 +19,7 @@
         <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2"
             *ngFor="let log of workoutLogs">
             <div class="flex-grow-1">
-                <h5 class="mb-1">{{ log.name }}</h5>
+                <h5 class="mb-1 handwriting-3 fs-5">{{ log.name }}</h5>
                 <p class="mb-1 text-muted">{{ log.description }}</p>
                 <small class="text-muted">
                     {{ log.date | date: 'mediumDate' }} • {{ log.duration }} min •

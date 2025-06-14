@@ -1,14 +1,14 @@
 <div class="calendar-wrapper bg-white p-3 rounded shadow">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <button class="btn btn-outline-dark btn-sm" (click)="prevMonth()">&lt;</button>
-        <h5 class="mb-0">
+        <h5 class="mb-0 handwriting-3">
             {{ currentDate() | date: 'MMMM yyyy' }}
         </h5>
         <button class="btn btn-outline-dark btn-sm" (click)="nextMonth()">&gt;</button>
     </div>
 
     <!-- Weekday Headers -->
-    <div class="calendar grid mb-1" style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;">
+    <div class="calendar grid mb-1 handwriting-1 fs-6" style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;">
         <div class="fw-bold text-secondary">MO</div>
         <div class="fw-bold text-secondary">TU</div>
         <div class="fw-bold text-secondary">WE</div>
@@ -42,7 +42,7 @@
             </div>
             <div class="modal-body">
                 <div *ngIf="selectedWorkoutLog; else noLog">
-                    <h5 class="text-primary mb-2">{{ selectedWorkoutLog.name }}</h5>
+                    <h5 class="mb-2 handwriting-3">{{ selectedWorkoutLog.name }}</h5>
 
                     <p><strong>Description:</strong> {{ selectedWorkoutLog.description }}</p>
 
